@@ -1,0 +1,28 @@
+// 카카오 API 키가 없을 때 사용하는 샘플 도서 (검색/추천 폴백).
+// 카카오 응답과 동일한 정규화 형태로 제공한다.
+export const SEED_BOOKS = [
+  { isbn: '9788966262281', title: '클린 코드', author: '로버트 C. 마틴', publisher: '인사이트', cover_img: '', contents: '읽기 좋고 유지보수하기 쉬운 코드를 작성하는 원칙과 사례.' },
+  { isbn: '9791162243664', title: '모던 자바스크립트 Deep Dive', author: '이웅모', publisher: '위키북스', cover_img: '', contents: '자바스크립트의 동작 원리를 근본부터 깊이 있게 다룬다.' },
+  { isbn: '9791160508796', title: '리액트를 다루는 기술', author: '김민준', publisher: '길벗', cover_img: '', contents: 'React 핵심 개념부터 실전 프로젝트까지.' },
+  { isbn: '9791162245651', title: 'Node.js 교과서', author: '조현영', publisher: '길벗', cover_img: '', contents: 'Node.js와 Express로 서버를 구축하는 과정.' },
+  { isbn: '9791169210140', title: '혼자 공부하는 SQL', author: '우재남', publisher: '한빛미디어', cover_img: '', contents: '데이터베이스와 SQL 기초를 혼자서 익힌다.' },
+  { isbn: '9788932473901', title: '사피엔스', author: '유발 하라리', publisher: '김영사', cover_img: '', contents: '인류의 거대한 발자취를 담은 베스트셀러.' },
+  { isbn: '9788934985907', title: '총, 균, 쇠', author: '재레드 다이아몬드', publisher: '문학사상', cover_img: '', contents: '문명 발달의 차이를 환경적 요인으로 설명한다.' },
+  { isbn: '9788937462788', title: '데미안', author: '헤르만 헤세', publisher: '민음사', cover_img: '', contents: '자아를 찾아가는 내면의 여정을 그린 성장소설.' },
+  { isbn: '9788937473135', title: '1984', author: '조지 오웰', publisher: '민음사', cover_img: '', contents: '전체주의 감시 사회를 그린 디스토피아 고전.' },
+  { isbn: '9788954682152', title: '불편한 편의점', author: '김호연', publisher: '나무옆의자', cover_img: '', contents: '편의점을 무대로 한 사람들의 온기 있는 이야기.' },
+  { isbn: '9788932034072', title: '아몬드', author: '손원평', publisher: '창비', cover_img: '', contents: '감정을 느끼지 못하는 소년의 성장 이야기.' },
+  { isbn: '9791190090018', title: '달러구트 꿈 백화점', author: '이미예', publisher: '팩토리나인', cover_img: '', contents: '꿈을 파는 백화점을 배경으로 한 환상 소설.' },
+  { isbn: '9788901219943', title: '미움받을 용기', author: '기시미 이치로', publisher: '인플루엔셜', cover_img: '', contents: '아들러 심리학을 대화 형식으로 풀어낸 책.' },
+  { isbn: '9791164840731', title: '아주 작은 습관의 힘', author: '제임스 클리어', publisher: '비즈니스북스', cover_img: '', contents: '작은 변화로 삶을 바꾸는 습관 설계법.' },
+  { isbn: '9788934972464', title: '그릿', author: '앤절라 더크워스', publisher: '비즈니스북스', cover_img: '', contents: '끈기와 열정이 성취를 만든다는 연구.' },
+  { isbn: '9788932917245', title: '코스모스', author: '칼 세이건', publisher: '사이언스북스', cover_img: '', contents: '우주와 인간의 위치를 풀어낸 과학 교양서.' },
+  { isbn: '9791160808230', title: '이기적 유전자', author: '리처드 도킨스', publisher: '을유문화사', cover_img: '', contents: '유전자 관점에서 생명과 진화를 설명한다.' },
+  { isbn: '9788983711892', title: '엔트로피', author: '제러미 리프킨', publisher: '세종연구원', cover_img: '', contents: '엔트로피 법칙으로 문명과 환경을 통찰한다.' },
+  { isbn: '9791190977097', title: '돈의 심리학', author: '모건 하우절', publisher: '인플루엔셜', cover_img: '', contents: '돈을 다루는 태도와 행동을 사례로 설명한다.' },
+  { isbn: '9788950989194', title: '부의 추월차선', author: 'MJ 드마코', publisher: '토트', cover_img: '', contents: '빠른 부의 축적을 위한 사고방식과 사업 원리.' },
+  { isbn: '9788932919126', title: '나는 메트로폴리탄 미술관의 경비원입니다', author: '패트릭 브링리', publisher: '웅진지식하우스', cover_img: '', contents: '예술과 삶을 사색한 따뜻한 에세이.' },
+  { isbn: '9788954637138', title: '여행의 이유', author: '김영하', publisher: '문학동네', cover_img: '', contents: '여행을 통해 길어 올린 삶과 글쓰기에 대한 사유.' },
+  { isbn: '9788937473371', title: '죽음의 수용소에서', author: '빅터 프랭클', publisher: '청아출판사', cover_img: '', contents: '삶의 의미를 탐구한 로고테라피의 고전.' },
+  { isbn: '9791191056556', title: '물고기는 존재하지 않는다', author: '룰루 밀러', publisher: '곰출판', cover_img: '', contents: '혼돈 속 의미를 묻는 과학 논픽션.' },
+]
