@@ -48,16 +48,23 @@ router.post('/', async (req, res) => {
     const book = await upsertBook(bookData)
     let rec = await Record.findOne({ user: req.user.id, book: book._id })
     if (!rec) {
+      const initStatus = status || 'want'
+      let initProgress = progress ?? 0
+      if (initStatus === 'completed') initProgress = 100
+      else if (initStatus === 'want') initProgress = 0
       rec = await Record.create({
         user: req.user.id,
         book: book._id,
-        status: status || 'want',
-        progress: progress ?? 0,
+        status: initStatus,
+        progress: initProgress,
       })
     } else {
-      if (status !== undefined) rec.status = status
       if (progress !== undefined) rec.progress = progress
-      if (status === 'completed') rec.progress = 100
+      if (status !== undefined) {
+        rec.status = status
+        if (status === 'completed') rec.progress = 100
+        else if (status === 'want') rec.progress = 0
+      }
       await rec.save()
     }
     await rec.populate('book')
@@ -75,9 +82,12 @@ router.patch('/:isbn', async (req, res) => {
   const rec = await Record.findOne({ user: req.user.id, book: book._id })
   if (!rec) return res.status(404).json({ message: '기록을 찾을 수 없습니다.' })
   const { status, progress } = req.body
-  if (status !== undefined) rec.status = status
   if (progress !== undefined) rec.progress = progress
-  if (status === 'completed') rec.progress = 100
+  if (status !== undefined) {
+    rec.status = status
+    if (status === 'completed') rec.progress = 100
+    else if (status === 'want') rec.progress = 0
+  }
   await rec.save()
   await rec.populate('book')
   res.json({ record: shape(rec) })

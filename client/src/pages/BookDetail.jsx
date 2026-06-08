@@ -23,6 +23,7 @@ export default function BookDetail() {
   const [content, setContent] = useState('')
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [progress, setProgressLocal] = useState(0)
 
   useEffect(() => {
     async function load() {
@@ -45,6 +46,11 @@ export default function BookDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isbn, user])
 
+  // 서버 기록이 바뀌면 슬라이더 로컬값을 맞춘다
+  useEffect(() => {
+    setProgressLocal(record?.progress ?? 0)
+  }, [record])
+
   if (loading && !book) return <div className="loading">불러오는 중…</div>
   if (!book) return <div className="container page"><h2>책을 찾을 수 없습니다.</h2><Link to="/search" className="btn ghost">검색으로</Link></div>
 
@@ -57,8 +63,9 @@ export default function BookDetail() {
     if (requireLogin()) return
     setRecord(await saveRecord(book, status))
   }
-  const setProgress = async (progress) => {
-    setRecord(await updateRecord(isbn, { progress: Number(progress) }))
+  const commitProgress = async (value) => {
+    const updated = await updateRecord(isbn, { progress: Number(value) })
+    setRecord(updated)
   }
   const removeFromLibrary = async () => {
     await deleteRecord(isbn)
@@ -103,10 +110,13 @@ export default function BookDetail() {
         </div>
         {record?.status === 'reading' && (
           <div style={{ marginTop: 18, maxWidth: 420 }}>
-            <label style={{ fontSize: 13, fontWeight: 600 }}>독서 진행률: {record.progress}%</label>
-            <div className="progress-bar"><div style={{ width: `${record.progress}%` }} /></div>
-            <input type="range" min="0" max="100" step="5" value={record.progress}
-              style={{ width: '100%' }} onChange={(e) => setProgress(e.target.value)} />
+            <label style={{ fontSize: 13, fontWeight: 600 }}>독서 진행률: {progress}%</label>
+            <div className="progress-bar"><div style={{ width: `${progress}%` }} /></div>
+            <input type="range" min="0" max="100" step="5" value={progress}
+              style={{ width: '100%' }}
+              onChange={(e) => setProgressLocal(Number(e.target.value))}
+              onMouseUp={(e) => commitProgress(e.target.value)}
+              onTouchEnd={(e) => commitProgress(e.target.value)} />
           </div>
         )}
         {record?.status === 'completed' && (
