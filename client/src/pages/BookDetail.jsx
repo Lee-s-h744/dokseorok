@@ -64,7 +64,9 @@ export default function BookDetail() {
     setRecord(await saveRecord(book, status))
   }
   const commitProgress = async (value) => {
-    const updated = await updateRecord(isbn, { progress: Number(value) })
+    // 기록이 없을 수도 있으므로 PATCH 대신 upsert(POST)로 저장한다.
+    // 진행률 슬라이더는 '읽는 중' 상태에서만 노출되므로 상태도 함께 보낸다.
+    const updated = await saveRecord(book, record?.status || 'reading', Number(value))
     setRecord(updated)
   }
   // 슬라이더: 화면은 즉시 갱신, 저장은 0.4초 디바운스 (드래그·클릭·키보드 모두 저장됨)
