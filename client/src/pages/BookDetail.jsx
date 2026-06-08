@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useLocation, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import {
@@ -67,6 +67,14 @@ export default function BookDetail() {
     const updated = await updateRecord(isbn, { progress: Number(value) })
     setRecord(updated)
   }
+  // 슬라이더: 화면은 즉시 갱신, 저장은 0.4초 디바운스 (드래그·클릭·키보드 모두 저장됨)
+  const saveTimer = useRef(null)
+  const onSlide = (value) => {
+    const v = Number(value)
+    setProgressLocal(v)
+    clearTimeout(saveTimer.current)
+    saveTimer.current = setTimeout(() => commitProgress(v), 400)
+  }
   const removeFromLibrary = async () => {
     await deleteRecord(isbn)
     setRecord(null)
@@ -114,7 +122,7 @@ export default function BookDetail() {
             <div className="progress-bar"><div style={{ width: `${progress}%` }} /></div>
             <input type="range" min="0" max="100" step="5" value={progress}
               style={{ width: '100%' }}
-              onChange={(e) => setProgressLocal(Number(e.target.value))}
+              onChange={(e) => onSlide(e.target.value)}
               onMouseUp={(e) => commitProgress(e.target.value)}
               onTouchEnd={(e) => commitProgress(e.target.value)} />
           </div>
